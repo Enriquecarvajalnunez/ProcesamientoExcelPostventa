@@ -33,6 +33,11 @@ class Home extends Controller
         //echo json_encode($FormUpload);
     }
 
+    public function FormUpload()
+    {
+        $this->FormUpload = $this->loadModel("formUpload");
+    }
+
     /**
      * PAGE: exampleone
      * This method handles what happens when you move to http://yourproject/home/exampleone

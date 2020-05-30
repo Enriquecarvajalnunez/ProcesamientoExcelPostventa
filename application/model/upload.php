@@ -1,15 +1,22 @@
 <?php
 
 //Require_once "vendor/autoload.php";
+include("formUpload.php");
 
 use PhpOffice\PhpSpreadsheet\IOFactory;//IOFactory adivina el tipo de plantilla con la que se trabaja
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class Upload
-{
-    public function Upload()
-    {        
 
+class Upload extends FormUpload
+{      
+                 
+    public function __construct()
+    {     
+        /*No lee el valor de variable filename de la clase FormUpload*/
+        //$formUpload = new FormUpload();
+        //$formUpload->filename;
+        //$filename = $this->Upload = $this->FormUpload();                               
+        
         $RutaArchivo = APP . 'Datos.Xlsx';
         $documento = IOFactory::load($RutaArchivo);//lectura del archivo
 
@@ -31,8 +38,7 @@ class Upload
                 {             
                 
                 if($i==1)
-                    {
-                        
+                    {                        
                         $Header.= str_pad('P0'.$cell->getValue(),18,chr(32),STR_PAD_RIGHT); //obtiene valor de la celda                
                         $i++;
                     
@@ -46,14 +52,14 @@ class Upload
 
         $Header.=$Piepagina;        
         $report_output = 'C:\xampp\htdocs\DatosPHP\Datos.txt';
-        file_put_contents($report_output,$Header);                       
-
+        file_put_contents($report_output,$Header);  
+        
+        echo 'PROCESO FINALIZADO CON EXITO !!';
     }
-  
-    
+      
 }//Fin clase
-    echo 'PROCESO FINALIZADO CON EXITO !';
-   //Función para concatenar espacios, se debe revisar porque no esta asignando los espacios correctos 
+    
+   //Función para concatenar espacios
    function Espacios($nespacios)
    {
        return str_pad(chr(32), $nespacios, chr(32), STR_PAD_RIGHT);

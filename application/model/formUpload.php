@@ -2,8 +2,18 @@
 
 class FormUpload
 {
-    public function FormUpload()
-    {    
+    //Define var
+    public $filename;          
+    
+    /*este metodo no esta funcionando*/
+
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+    }
+
+    public function __construct()
+    {            
         // Check if the form was submitted
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Check if file was uploaded without errors
@@ -12,6 +22,9 @@ class FormUpload
                 $filename = $_FILES["photo"]["name"];
                 $filetype = $_FILES["photo"]["type"];
                 $filesize = $_FILES["photo"]["size"];
+
+
+                $this->setFilename($filename);
             
                 // Verify file extension
                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -32,11 +45,15 @@ class FormUpload
                     } 
                 } else{
                     echo "Error: There was a problem uploading your file. Please try again."; 
-                }
+                }                
+
             } else{
                 echo "Error: " . $_FILES["photo"]["error"];
             }
-        }
-    }
-}
+        }//print_r($filename);
+                
+        //$this->setFilename($filename);        
+        //return $filename;
+    } 
+}//Fin de clase
 ?>
